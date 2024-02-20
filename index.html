@@ -9,18 +9,15 @@
             font-family: 'Hi Melody', cursive;
             text-align: center; /* 모든 내용을 가운데 정렬 */
             background-color: #F6F6EA; /* 배경색 설정 */
+            font-size: 16px; /* 기본 폰트 사이즈 */
         }
         #container {
             display: inline-block;
             text-align: left; /* 입력란과 버튼은 왼쪽 정렬로 보이도록 조정 */
             margin-top: 20px;
         }
-        .label {
-            display: inline-block;
-            margin-right: 5px; /* 라벨과 입력란 사이의 간격 */
-        }
-        .unit {
-            margin-left: 5px; /* 입력란과 단위 사이의 간격 */
+        .label, .unit, button, input {
+            font-size: 1.5em; /* 폰트 사이즈 3배로 증가 */
         }
         .highlight {
             display: inline;
@@ -31,35 +28,63 @@
             border: none; /* 버튼 테두리 제거 */
             padding: 10px 20px; /* 버튼 내부 여백 */
             cursor: pointer; /* 마우스 오버 시 커서 변경 */
-            font-family: 'Hi Melody', cursive; /* 버튼 폰트 스타일 */
+            border-radius: 15px; /* 버튼 모서리 둥글게 */
         }
         button:hover {
             opacity: 0.9; /* 마우스 오버 시 버튼 투명도 변경 */
         }
+        #resultX, #resultY, #moldingResult, #cuttingAdvice, #filmAdvice, #exactSizeAdvice {
+            display: none; /* 결과 부분 초기 상태에서 숨김 */
+        }
     </style>
     <script>
         function calculate() {
-            // 입력값 가져오기
             var width = document.getElementById('widthInput').value;
 
-            // 계산 수행
-            var x = Math.floor((width - 10) / 80); // 필요한 루바 수
-            var y = (width - 10) % 80 + 10; // 남는 부분의 길이
+            // 필요한 루바 수 계산
+            var x = Math.floor(width / 80); 
+            var y = width % 80; // 남는 부분
+            var molding = Math.ceil(width / 1200); // 마감 몰딩 필요 개수
+            var remainder = width % 1200; // 1200으로 나눈 나머지
 
             // 결과 표시
+            document.getElementById('resultX').style.display = "block";
+            document.getElementById('resultY').style.display = "block";
+            document.getElementById('moldingResult').style.display = "block";
             document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
-            document.getElementById('resultY').innerText = "남는 부분: " + y + "mm 인테리어필름";
+            
+            // 루바 나머지 처리
+            if (y == 0) {
+                document.getElementById('filmAdvice').style.display = "block";
+                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다.:)\n정확한 사이즈를 측정했는지 꼭 확인해주세요";
+            } else {
+                document.getElementById('filmAdvice').style.display = "block";
+                document.getElementById('filmAdvice').innerText = "남는 부분은 " + y + "mm에 붙일 인테리어 필름이 필요합니다.:)";
+            }
+
+            document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수 : " + molding + "개";
+
+            // 마감 몰딩에 대한 추가 메시지
+            if (remainder == 0) {
+                document.getElementById('cuttingAdvice').style.display = "block";
+                document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다.:)";
+            } else {
+                document.getElementById('cuttingAdvice').style.display = "block";
+                document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야합니다.:)<br>맞춤 재단 키트를 추천드려요.";
+            }
         }
     </script>
 </head>
 <body>
     <div id="container">
         <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력 :</span></label>
-        <input type="number" id="widthInput" placeholder="너비(mm)">
+        <input type="number" id="widthInput" placeholder="너비(mm)" style="font-size: 1.5em;">
         <span class="unit">mm</span>
         <button onclick="calculate()">계산하기</button>
         <p id="resultX">필요한 루바: </p>
-        <p id="resultY">남는 부분: </p>
+        <p id="filmAdvice"></p> <!-- 인테리어 필름 관련 조언 -->
+        <p id="moldingResult">마감 몰딩 필요 개수: </p>
+        <p id="cuttingAdvice"></p> <!-- 마감 몰딩 재단 관련 조언 -->
     </div>
 </body>
 </html>
