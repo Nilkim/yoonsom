@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>루바 계산기</title>
+    <script>
+        function calculate() {
+            // 입력값 가져오기
+            var width = document.getElementById('widthInput').value;
+
+            // 계산 수행
+            var x = Math.floor((width - 10) / 80); // 필요한 루바 수
+            var y = (width - 10) % 80 + 10; // 남는 부분의 길이
+
+            // 결과 표시
+            document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
+            document.getElementById('resultY').innerText = "남는 부분: " + y + "mm 인테리어필름";
+        }
+    </script>
+</head>
+<body>
+    <h2>루바 계산기</h2>
+    <p>시공할 너비(mm)를 입력하세요:</p>
+    <input type="number" id="widthInput" placeholder="너비(mm)">
+    <button onclick="calculate()">계산하기</button>
+    <p id="resultX">필요한 루바: </p>
+    <p id="resultY">남는 부분: </p>
+</body>
+</html>
