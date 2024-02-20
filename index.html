@@ -7,66 +7,72 @@
     <style>
         body {
             font-family: 'Hi Melody', cursive;
-            text-align: center;
-            background-color: #F6F6EA;
-            font-size: 16px;
+            text-align: center; /* 모든 내용을 가운데 정렬 */
+            background-color: #F6F6EA; /* 배경색 설정 */
         }
         #container {
             display: inline-block;
-            text-align: left;
+            text-align: center; /* 컨테이너 내부 내용도 가운데 정렬 */
             margin-top: 20px;
         }
         .label, .unit, button, input {
-            font-size: 1.5em;
+            font-size: 1.5em; /* 폰트 사이즈 1.5배로 증가 */
+            font-family: 'Hi Melody', cursive; /* 'Hi Melody' 폰트 적용 */
+        }
+        .result {
+            font-size: 3em; /* 결과값 폰트 사이즈 2배로 증가 */
         }
         .highlight {
             display: inline;
-            box-shadow: inset 0 -10px 0 #F3DEAF;
+            box-shadow: inset 0 -10px 0 #F3DEAF; /* 텍스트 하이라이트 효과 */
         }
         button {
-            background-color: #F3DEAF;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 15px;
+            background-color: #F3DEAF; /* 버튼 배경색 */
+            border: none; /* 버튼 테두리 제거 */
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            border-radius: 15px; /* 버튼 모서리 둥글게 */
         }
         button:hover {
-            opacity: 0.9;
+            opacity: 0.9; /* 마우스 오버 시 버튼 투명도 변경 */
         }
-        #resultX, #resultY, #moldingResult, #cuttingAdvice, #filmAdvice, #exactSizeAdvice {
-            display: none;
+        #resultX, #moldingResult, #cuttingAdvice, #filmAdvice {
+            display: none; /* 결과 부분 초기 상태에서 숨김 */
         }
     </style>
     <script>
         function calculate() {
             var width = document.getElementById('widthInput').value;
             var x = Math.floor(width / 80);
-            var y = width % 80;
             var molding = Math.ceil(width / 1200);
             var remainder = width % 1200;
 
             document.getElementById('resultX').style.display = "block";
-            document.getElementById('resultY').style.display = "block";
             document.getElementById('moldingResult').style.display = "block";
             document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
-            document.getElementById('resultY').innerText = "남는 부분: " + y + "mm"; // 추가된 부분
+            document.getElementById('resultX').className = "result"; // 결과값 폰트 크기 적용
 
-            if (y == 0) {
+            if (width % 80 == 0) {
                 document.getElementById('filmAdvice').style.display = "block";
                 document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다.:)\n정확한 사이즈를 측정했는지 꼭 확인해주세요";
+                document.getElementById('filmAdvice').className = "result"; // 결과값 폰트 크기 적용
             } else {
                 document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "남는 부분은 " + y + "mm에 붙일 인테리어 필름이 필요합니다.:)";
+                document.getElementById('filmAdvice').innerText = "인테리어 필름이 필요합니다.:)";
+                document.getElementById('filmAdvice').className = "result"; // 결과값 폰트 크기 적용
             }
 
             document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수 : " + molding + "개";
+            document.getElementById('moldingResult').className = "result"; // 결과값 폰트 크기 적용
 
             if (remainder == 0) {
                 document.getElementById('cuttingAdvice').style.display = "block";
                 document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다.:)";
+                document.getElementById('cuttingAdvice').className = "result"; // 결과값 폰트 크기 적용
             } else {
                 document.getElementById('cuttingAdvice').style.display = "block";
                 document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야합니다.:)<br>맞춤 재단 키트를 추천드려요.";
+                document.getElementById('cuttingAdvice').className = "result"; // 결과값 폰트 크기 적용
             }
         }
     </script>
@@ -77,10 +83,9 @@
         <input type="number" id="widthInput" placeholder="너비(mm)" style="font-size: 1.5em;">
         <span class="unit">mm</span>
         <button onclick="calculate()">계산하기</button>
-        <p id="resultX">필요한 루바: </p>
-        <p id="resultY">남는 부분: </p> <!-- 추가된 부분 -->
+        <p id="resultX"></p>
         <p id="filmAdvice"></p>
-        <p id="moldingResult">마감 몰딩 필요 개수: </p>
+        <p id="moldingResult"></p>
         <p id="cuttingAdvice"></p>
     </div>
 </body>
