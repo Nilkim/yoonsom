@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <style>
-    body {
-        background-color: #F3E9D2; /* 배경색 */
-        font-family: '나눔고딕', sans-serif; /* 폰트 */
-    }
-    h2 {
-        color: #5A4224; /* 제목 색상 */
-    }
-    input, button {
-        font-family: '나눔고딕', sans-serif;
-        border-radius: 5px; /* 버튼과 입력 필드의 모서리 둥글게 */
-    }
-    button {
-        background-color: #A1743B; /* 버튼 배경색 */
-        color: white; /* 버튼 텍스트 색상 */
-        padding: 10px 20px; /* 버튼 내부 여백 */
-        border: none; /* 버튼 테두리 제거 */
-        cursor: pointer; /* 마우스 오버시 커서 변경 */
-    }
-    button:hover {
-        background-color: #855F29; /* 버튼 호버 색상 */
-    }
-</style>
 <head>
     <meta charset="UTF-8">
     <title>루바 계산기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hi Melody', cursive;
+            text-align: center; /* 모든 내용을 가운데 정렬 */
+            background-color: #F6F6EA; /* 배경색 설정 */
+        }
+        #container {
+            display: inline-block;
+            text-align: left; /* 입력란과 버튼은 왼쪽 정렬로 보이도록 조정 */
+            margin-top: 20px;
+        }
+        .label {
+            display: inline-block;
+            margin-right: 5px; /* 라벨과 입력란 사이의 간격 */
+        }
+        .unit {
+            margin-left: 5px; /* 입력란과 단위 사이의 간격 */
+        }
+        .highlight {
+            display: inline;
+            box-shadow: inset 0 -10px 0 #F3DEAF; /* 텍스트 하이라이트 효과 */
+        }
+        button {
+            background-color: #F3DEAF; /* 버튼 배경색 */
+            border: none; /* 버튼 테두리 제거 */
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            font-family: 'Hi Melody', cursive; /* 버튼 폰트 스타일 */
+        }
+        button:hover {
+            opacity: 0.9; /* 마우스 오버 시 버튼 투명도 변경 */
+        }
+    </style>
     <script>
         function calculate() {
             // 입력값 가져오기
@@ -42,11 +53,13 @@
     </script>
 </head>
 <body>
-    <h2>루바 계산기</h2>
-    <p>시공할 너비(mm)를 입력하세요:</p>
-    <input type="number" id="widthInput" placeholder="너비(mm)">
-    <button onclick="calculate()">계산하기</button>
-    <p id="resultX">필요한 루바: </p>
-    <p id="resultY">남는 부분: </p>
+    <div id="container">
+        <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력 :</span></label>
+        <input type="number" id="widthInput" placeholder="너비(mm)">
+        <span class="unit">mm</span>
+        <button onclick="calculate()">계산하기</button>
+        <p id="resultX">필요한 루바: </p>
+        <p id="resultY">남는 부분: </p>
+    </div>
 </body>
 </html>
