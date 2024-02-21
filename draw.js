@@ -8,7 +8,7 @@ function drawCanvas(inputWidth) {
     var canvasHeight = (containerWidth * heightRatio) / width; // 캔버스 높이 계산, 비율 조정 필요
 
     canvas.width = containerWidth;
-    canvas.height = canvasHeight > containerWidth ? containerWidth : canvasHeight; // 캔버스 높이 조정
+    canvas.height = canvasHeight > containerWidth ? containerHeight : canvasWidth; // 캔버스 높이 조정
 
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 클리어
