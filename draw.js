@@ -83,7 +83,7 @@ function drawCanvas(inputWidth) {
         if (totalMoldingWidth + moldingWidth > rectWidth) {
             moldingWidth = rectWidth - totalMoldingWidth; // 남은 공간에 맞게 마지막 몰딩 길이 조절
         }
-        ctx.fillRect(startX, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
+        ctx.fillRect(startX + i * moldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
         totalMoldingWidth += moldingWidth; // 그려진 몰딩 길이 업데이트
         //테두리
         ctx.strokeStyle = 'black';
