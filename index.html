@@ -3,41 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>루바 계산기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 뷰포트 설정 추가 -->
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Hi Melody', cursive;
-            text-align: center; /* 모든 내용을 가운데 정렬 */
-            background-color: #F6F6EA; /* 배경색 설정 */
+            text-align: center;
+            background-color: #F6F6EA;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         #container {
             display: inline-block;
-            text-align: center; /* 컨테이너 내부 내용도 가운데 정렬 */
+            text-align: center;
             margin-top: 20px;
+            padding: 0 20px; /* 좌우 패딩 추가 */
         }
         .label, .unit, button, input {
-            font-size: 1.5em; /* 폰트 사이즈 1.5배로 증가 */
-            font-family: 'Hi Melody', cursive; /* 'Hi Melody' 폰트 적용 */
+            font-size: 1.5em;
+            font-family: 'Hi Melody', cursive;
         }
         .result {
-            font-size: 3em; /* 결과값 폰트 사이즈 2배로 증가 */
+            font-size: 3em;
         }
         .highlight {
             display: inline;
-            box-shadow: inset 0 -10px 0 #F3DEAF; /* 텍스트 하이라이트 효과 */
+            box-shadow: inset 0 -10px 0 #F3DEAF;
         }
         button {
-            background-color: #F3DEAF; /* 버튼 배경색 */
-            border: none; /* 버튼 테두리 제거 */
-            padding: 10px 20px; /* 버튼 내부 여백 */
-            cursor: pointer; /* 마우스 오버 시 커서 변경 */
-            border-radius: 15px; /* 버튼 모서리 둥글게 */
+            background-color: #F3DEAF;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 15px;
         }
         button:hover {
-            opacity: 0.9; /* 마우스 오버 시 버튼 투명도 변경 */
+            opacity: 0.9;
         }
         #resultX, #moldingResult, #cuttingAdvice, #filmAdvice {
-            display: none; /* 결과 부분 초기 상태에서 숨김 */
+            display: none;
+        }
+
+        /* 미디어 쿼리를 사용하여 모바일 디바이스에 대한 스타일 조정 */
+        @media (max-width: 768px) {
+            .label, .unit, button, input {
+                font-size: 2em; /* 모바일에서의 폰트 크기 증가 */
+            }
+            .result {
+                font-size: 4em; /* 결과값 폰트 크기 추가 증가 */
+            }
+            #container {
+                width: 100%; /* 모바일 화면 너비에 맞춤 */
+                margin-top: 10px; /* 모바일에서의 상단 여백 감소 */
+            }
         }
     </style>
     <script>
@@ -50,29 +69,29 @@
             document.getElementById('resultX').style.display = "block";
             document.getElementById('moldingResult').style.display = "block";
             document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
-            document.getElementById('resultX').className = "result"; // 결과값 폰트 크기 적용
+            document.getElementById('resultX').className = "result";
 
             if (width % 80 == 0) {
                 document.getElementById('filmAdvice').style.display = "block";
                 document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다.:)\n정확한 사이즈를 측정했는지 꼭 확인해주세요";
-                document.getElementById('filmAdvice').className = "result"; // 결과값 폰트 크기 적용
+                document.getElementById('filmAdvice').className = "result";
             } else {
                 document.getElementById('filmAdvice').style.display = "block";
                 document.getElementById('filmAdvice').innerText = "인테리어 필름이 필요합니다.:)";
-                document.getElementById('filmAdvice').className = "result"; // 결과값 폰트 크기 적용
+                document.getElementById('filmAdvice').className = "result";
             }
 
             document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수 : " + molding + "개";
-            document.getElementById('moldingResult').className = "result"; // 결과값 폰트 크기 적용
+            document.getElementById('moldingResult').className = "result";
 
             if (remainder == 0) {
                 document.getElementById('cuttingAdvice').style.display = "block";
                 document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다.:)";
-                document.getElementById('cuttingAdvice').className = "result"; // 결과값 폰트 크기 적용
+                document.getElementById('cuttingAdvice').className = "result";
             } else {
                 document.getElementById('cuttingAdvice').style.display = "block";
                 document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야합니다.:)<br>맞춤 재단 키트를 추천드려요.";
-                document.getElementById('cuttingAdvice').className = "result"; // 결과값 폰트 크기 적용
+                document.getElementById('cuttingAdvice').className = "result";
             }
         }
     </script>
