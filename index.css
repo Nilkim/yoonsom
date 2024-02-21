@@ -33,7 +33,9 @@ button {
     display: none;
 }
 #myCanvas {
-    margin-top: 20px;
+
+   text-align: center;
+ margin-top: 20px;
     display: block; /* 캔버스를 블록 레벨 요소로 변경하여 가로 전체를 차지하도록 함 */
     max-width: 100%;
 }
