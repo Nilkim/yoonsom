@@ -68,4 +68,30 @@ function drawCanvas(inputWidth) {
         ctx.lineWidth = 0.5;
         ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
+     그리기
+    var moldingWidthReal = 1200; // 몰딩 실제 가로
+    var moldingHeightReal = 40; // 몰딩 실제 높이
+    var moldingWidth = rectWidth * (moldingWidthReal / inputWidth); // 캔버스 상의 몰딩 가로 길이
+    var moldingHeight = rectHeight * (moldingHeightReal / heightRatio); // 캔버스 상의 몰딩 높이
+
+    var totalMoldingWidth = 0; // 그려진 몰딩의 총 가로 길이
+    var numberOfMoldings = Math.floor(inputWidth / moldingWidthReal); // 전체 몰딩 개수
+
+    ctx.fillStyle = 'grey'; // 몰딩 색상 설정
+
+    for (var i = 0; i < numberOfMoldings; i++) {
+        if (totalMoldingWidth + moldingWidth > rectWidth) {
+            moldingWidth = rectWidth - totalMoldingWidth; // 남은 공간에 맞게 마지막 몰딩 길이 조절
+        }
+        ctx.fillRect(startX + totalMoldingWidth, startY, moldingWidth, moldingHeight);
+        totalMoldingWidth += moldingWidth; // 그려진 몰딩 길이 업데이트
+    }
+
+    // 마지막 몰딩 처리 (남은 너비가 있을 경우)
+    var remainingWidth = inputWidth - (numberOfMoldings * moldingWidthReal);
+    if (remainingWidth > 0) {
+        moldingWidth = rectWidth * (remainingWidth / inputWidth); // 남은 너비에 맞게 몰딩 길이 조절
+        ctx.fillRect(startX + totalMoldingWidth, startY, moldingWidth, moldingHeight);
+    }
 }
+
