@@ -33,9 +33,8 @@ button {
     display: none;
 }
 #myCanvas {
-
- margin-top: 20px;
-    display: block; /* 캔버스를 블록 레벨 요소로 변경하여 가로 전체를 차지하도록 함 */
+    display: block; /* 캔버스를 블록 레벨 요소로 명시적으로 설정 */
+    margin: 0 auto; /* 상하 마진 0, 좌우 마진 자동으로 설정하여 가운데 정렬 */
     max-width: 100%;
 }
 #canvasContainer {
