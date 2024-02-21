@@ -44,6 +44,19 @@ function drawCanvas(inputWidth) {
     ctx.rect(startX, startY, rectWidth, rectHeight);
     ctx.stroke();
 
+    // 사선 그리기
+    var lineLength = 100; // 사선 길이
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(startX - lineLength, startY - lineLength);
+    ctx.moveTo(startX + rectWidth, startY);
+    ctx.lineTo(startX + rectWidth + lineLength, startY - lineLength);
+    ctx.moveTo(startX + rectWidth, startY + rectHeight);
+    ctx.lineTo(startX + rectWidth + lineLength, startY + rectHeight + lineLength);
+    ctx.moveTo(startX, startY + rectHeight);
+    ctx.lineTo(startX - lineLength, startY + rectHeight + lineLength);
+    ctx.stroke();
+
     // 루바 그리기
     const numberOfLubas = Math.floor(inputWidthParsed / 80); // 필요한 루바 개수 계산
     const delayPerLuba = 3000 / numberOfLubas; // 루바 하나당 딜레이 시간
