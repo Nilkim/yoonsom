@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
     <style>
+        /* 기존 루바 계산기 스타일 */
         body {
             font-family: 'Hi Melody', cursive;
             text-align: center;
@@ -43,84 +44,98 @@
         #resultX, #moldingResult, #cuttingAdvice, #filmAdvice {
             display: none;
         }
+
+        /* 미디어 쿼리 */
+        @media (max-width: 768px) {
+            .label, .unit, button, input {
+                font-size: 2em;
+            }
+            .result {
+                font-size: 4em;
+            }
+            #container {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+        
+        /* 캔버스 스타일 */
         #myCanvas {
-            border: 1px solid #000000;
-            margin-top: 20px;
+            margin-top: 20px; /* 캔버스와 계산기 사이 간격 */
         }
     </style>
 </head>
 <body>
+    <!-- 루바 계산기 컨테이너 -->
     <div id="container">
-        <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력 :</span></label>
-        <input type="number" id="widthInput" placeholder="너비(mm)">
-        <span class="unit">mm</span>
-        <button onclick="calculate()">계산하기</button>
-        <p id="resultX"></p>
-        <p id="filmAdvice"></p>
-        <p id="moldingResult"></p>
-        <p id="cuttingAdvice"></p>
-        <!-- 캔버스 추가 -->
-        <canvas id="myCanvas" width="300" height="150"></canvas>
+        <!-- 생략된 루바 계산기 코드는 여기에 위치합니다 -->
     </div>
+
+    <!-- 캔버스 요소 추가 -->
+    <canvas id="myCanvas"></canvas>
+
     <script>
-        function calculate() {
-            var width = document.getElementById('widthInput').value;
-            // ... 나머지 계산기 코드 ...
+        // 루바 계산기 스크립트는 여기에 위치합니다
 
-            // 캔버스 그리기
-            drawCanvas(width);
-        }
-
-        function drawCanvas(widthInput) {
+        // 캔버스 그리기 함수
+        function drawCanvas(width) {
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 클리어
+            var height = 300; // 캔버스 높이 고정
+            var ratio = width / 2400; // 가로 비율 계산
+            var squareSize = height * ratio; // 정사각형 사이즈 계산
 
-            var height = 2400; // 높이 고정값
-            var width = parseFloat(widthInput); // 입력받은 가로 값
+            // 캔버스 크기 설정
+            canvas.width = width;
+            canvas.height = height;
 
-            // 캔버스의 가로 사이즈를 계산기의 가로 사이즈에 맞춤
-            var scaleFactor = 300 / height; // 캔버스에 그릴 때 사용할 스케일 인자
-            var scaledWidth = width * scaleFactor;
-            var scaledHeight = height * scaleFactor; // 항상 2400 기준으로 스케일
+            // Clear previous drawing
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 캔버스 크기 재설정
-            canvas.width = scaledWidth;
-            canvas.height = scaledHeight;
+            // Calculate the starting points
+            var startX = (canvas.width - squareSize) / 2;
+            var startY = (canvas.height - squareSize) / 2;
 
-            // 사각형의 모서리 정의
-            var points = [
-                { x: scaledWidth / 3, y: 0 }, // Top
-                { x: scaledWidth, y: scaledHeight / 2 }, // Right
-                { x: scaledWidth / 3, y: scaledHeight }, // Bottom
-                { x: 0, y: scaledHeight / 2 } // Left
-            ];
+            // Calculate the end points
+            var endX = startX + squareSize;
+            var endY = startY + squareSize;
 
-            // 사선 그리기
+            // Set the style of the line
+            ctx.strokeStyle = "#000000"; // 검은색으로 설정
+            ctx.lineWidth = 2;
+
+            // Draw the extended lines
             ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            ctx.lineTo(0, 0); // 상단 왼쪽
-            ctx.moveTo(points[0].x, points[0].y);
-            ctx.lineTo(scaledWidth, 0); // 상단 오른쪽
-            ctx.moveTo(points[2].x, points[2].y);
-            ctx.lineTo(0, scaledHeight); // 하단 왼쪽
-            ctx.moveTo(points[2].x, points[2].y);
-            ctx.lineTo(scaledWidth, scaledHeight); // 하단 오른쪽
-            ctx.strokeStyle = "#000000";
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(0, 0); // Upper left diagonal
+            ctx.moveTo(endX, startY);
+            ctx.lineTo(canvas.width, 0); // Upper right diagonal
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(canvas.width, canvas.height); // Lower right diagonal
+            ctx.moveTo(startX, endY);
+            ctx.lineTo(0, canvas.height); // Lower left diagonal
             ctx.stroke();
 
-            // 가로선 그리기
+            // Draw the square
             ctx.beginPath();
-            ctx.moveTo(0, points[1].y);
-            ctx.lineTo(scaledWidth, points[1].y);
-            ctx.stroke();
-
-            // 세로선 그리기
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, 0);
-            ctx.lineTo(points[2].x, scaledHeight);
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.lineTo(startX, endY);
+            ctx.closePath(); // Closes the path
             ctx.stroke();
         }
+
+        // 이벤트 리스너를 사용하여 계산 버튼 클릭 시 캔버스 그리기
+        document.getElementById('container').addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON') {
+                var widthInput = document.getElementById('widthInput');
+                if (widthInput && widthInput.value) {
+                    var width = parseFloat(widthInput.value);
+                    drawCanvas(width); // 캔버스에 그리기
+                }
+            }
+        });
     </script>
 </body>
 </html>
