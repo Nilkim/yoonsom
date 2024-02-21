@@ -77,21 +77,15 @@ function drawCanvas(inputWidth) {
     var totalMoldingWidth = 0; // 그려진 몰딩의 총 가로 길이
     var numberOfMoldings = Math.floor(inputWidth / moldingWidthReal); // 전체 몰딩 개수
 
-    ctx.fillStyle = 'grey'; // 몰딩 색상 설정
+    ctx.fillStyle = '#cc6633'; // 몰딩 색상 설정
 
     for (var i = 0; i < numberOfMoldings; i++) {
         if (totalMoldingWidth + moldingWidth > rectWidth) {
             moldingWidth = rectWidth - totalMoldingWidth; // 남은 공간에 맞게 마지막 몰딩 길이 조절
         }
-        ctx.fillRect(startX + totalMoldingWidth, startY, moldingWidth, moldingHeight);
+        ctx.fillRect(startX, startY + lubaHeight, moldingWidth, moldingHeight);
         totalMoldingWidth += moldingWidth; // 그려진 몰딩 길이 업데이트
     }
 
-    // 마지막 몰딩 처리 (남은 너비가 있을 경우)
-    var remainingWidth = inputWidth - (numberOfMoldings * moldingWidthReal);
-    if (remainingWidth > 0) {
-        moldingWidth = rectWidth * (remainingWidth / inputWidth); // 남은 너비에 맞게 몰딩 길이 조절
-        ctx.fillRect(startX + totalMoldingWidth, startY, moldingWidth, moldingHeight);
-    }
-}
+   }
 
