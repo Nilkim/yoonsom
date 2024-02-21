@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
     <style>
-        /* 기존 루바 계산기 스타일 */
         body {
             font-family: 'Hi Melody', cursive;
             text-align: center;
@@ -45,7 +44,6 @@
             display: none;
         }
 
-        /* 미디어 쿼리 */
         @media (max-width: 768px) {
             .label, .unit, button, input {
                 font-size: 2em;
@@ -59,83 +57,65 @@
             }
         }
         
-        /* 캔버스 스타일 */
         #myCanvas {
-            margin-top: 20px; /* 캔버스와 계산기 사이 간격 */
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- 루바 계산기 컨테이너 -->
     <div id="container">
-        <!-- 생략된 루바 계산기 코드는 여기에 위치합니다 -->
+        <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력 :</span></label>
+        <input type="number" id="widthInput" placeholder="너비(mm)" style="font-size: 1.5em;">
+        <span class="unit">mm</span>
+        <button onclick="calculate()">계산하기</button>
+        <p id="resultX" class="result"></p>
+        <p id="filmAdvice" class="result"></p>
+        <p id="moldingResult" class="result"></p>
+        <p id="cuttingAdvice" class="result"></p>
     </div>
 
-    <!-- 캔버스 요소 추가 -->
     <canvas id="myCanvas"></canvas>
 
+    <script src="draw.js"></script>
     <script>
-        // 루바 계산기 스크립트는 여기에 위치합니다
+        function calculate() {
+            var width = document.getElementById('widthInput').value;
+            var x = Math.floor(width / 80);
+            var molding = Math.ceil(width / 1200);
+            var remainder = width % 1200;
 
-        // 캔버스 그리기 함수
-        function drawCanvas(width) {
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
-            var height = 300; // 캔버스 높이 고정
-            var ratio = width / 2400; // 가로 비율 계산
-            var squareSize = height * ratio; // 정사각형 사이즈 계산
+            document.getElementById('resultX').style.display = "block";
+            document.getElementById('moldingResult').style.display = "block";
+            document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
+            document.getElementById('resultX').className = "result";
 
-            // 캔버스 크기 설정
-            canvas.width = width;
-            canvas.height = height;
-
-            // Clear previous drawing
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Calculate the starting points
-            var startX = (canvas.width - squareSize) / 2;
-            var startY = (canvas.height - squareSize) / 2;
-
-            // Calculate the end points
-            var endX = startX + squareSize;
-            var endY = startY + squareSize;
-
-            // Set the style of the line
-            ctx.strokeStyle = "#000000"; // 검은색으로 설정
-            ctx.lineWidth = 2;
-
-            // Draw the extended lines
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(0, 0); // Upper left diagonal
-            ctx.moveTo(endX, startY);
-            ctx.lineTo(canvas.width, 0); // Upper right diagonal
-            ctx.moveTo(endX, endY);
-            ctx.lineTo(canvas.width, canvas.height); // Lower right diagonal
-            ctx.moveTo(startX, endY);
-            ctx.lineTo(0, canvas.height); // Lower left diagonal
-            ctx.stroke();
-
-            // Draw the square
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(endX, startY);
-            ctx.lineTo(endX, endY);
-            ctx.lineTo(startX, endY);
-            ctx.closePath(); // Closes the path
-            ctx.stroke();
-        }
-
-        // 이벤트 리스너를 사용하여 계산 버튼 클릭 시 캔버스 그리기
-        document.getElementById('container').addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON') {
-                var widthInput = document.getElementById('widthInput');
-                if (widthInput && widthInput.value) {
-                    var width = parseFloat(widthInput.value);
-                    drawCanvas(width); // 캔버스에 그리기
-                }
+            if (width % 80 === 0) {
+                document.getElementById('filmAdvice').style.display = "block";
+                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다. 정확한 사이즈를 측정했는지 꼭 확인해주세요.";
+                document.getElementById('filmAdvice').className = "result";
+            } else {
+                document.getElementById('filmAdvice').style.display = "block";
+                document.getElementById('filmAdvice').innerText = "인테리어 필름이 필요합니다.";
+                document.getElementById('filmAdvice').className = "result";
             }
-        });
-    </script>
+
+            document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수: " + molding + "개";
+            document.getElementById('moldingResult').className = "result";
+
+            if (remainder === 0) {
+                document.getElementById('cuttingAdvice').style.display = "block";
+                document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다.";
+                document.getElementById('cuttingAdvice').className = "result";
+            } else {
+                document.getElementById('cuttingAdvice').style.display = "block";
+                document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야 합니다. 맞춤 재단 키트를 추천드려요.";
+                document.getElementById('cuttingAdvice').className = "result";
+            }
+
+            var width = document.getElementById('widthInput').value;
+        drawCanvas(width);
+}
+</script>
+
 </body>
 </html>
