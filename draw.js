@@ -88,7 +88,7 @@ function drawCanvas(inputWidth) {
         //테두리
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 0.5;
-        ctx.strokeRect(startX, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
+        ctx.strokeRect(startX + i * moldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
     }
 // 마지막 몰딩 처리 (남은 너비가 있을 경우)
     var remainingWidth = inputWidth - (numberOfMoldings * moldingWidthReal);
