@@ -85,7 +85,20 @@ function drawCanvas(inputWidth) {
         }
         ctx.fillRect(startX, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
         totalMoldingWidth += moldingWidth; // 그려진 몰딩 길이 업데이트
+        //테두리
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(startX, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
     }
-
+// 마지막 몰딩 처리 (남은 너비가 있을 경우)
+    var remainingWidth = inputWidth - (numberOfMoldings * moldingWidthReal);
+    if (remainingWidth > 0) {
+        moldingWidth = rectWidth * (remainingWidth / inputWidth); // 남은 너비에 맞게 몰딩 길이 조절
+        ctx.fillRect(startX + totalMoldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
+        //테두리
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(startX + totalMoldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
+    }
    }
 
