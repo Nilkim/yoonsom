@@ -2,42 +2,59 @@ function drawCanvas(inputWidth) {
     var canvas = document.getElementById("myCanvas");
     if (!canvas) return;
 
-    var inputWidth = parseFloat(inputWidth); 
-    var heightRatio = 2400; 
-    var ratio = inputWidth / heightRatio; 
+    var inputWidth = parseFloat(inputWidth); // 사용자 입력 가로 값
+    var heightRatio = 2400; // 사각형의 높이 가정 값
+    var ratio = inputWidth / heightRatio; // 가로 대 세로 비율
 
-    var containerWidth = document.getElementById('container').offsetWidth * 0.5;
+    var containerWidth = document.getElementById('container').offsetWidth * 0.5; // 컨테이너 가로 폭의 절반
     var canvasWidth, canvasHeight;
 
-    if (ratio > 1) {
+    // 가로가 세로보다 길 경우와 세로가 가로보다 길 경우에 대한 처리
+    if (ratio > 1) { // 가로가 더 긴 경우
         canvasWidth = containerWidth;
         canvasHeight = canvasWidth / ratio;
-    } else {
-        canvasHeight = containerWidth;
-        canvasWidth = canvasHeight * ratio;
+    } else { // 세로가 더 긴 경우 또는 정사각형
+        canvasHeight = containerWidth; // 캔버스 높이를 가로 길이에 맞춤
+        canvasWidth = canvasHeight * ratio; // 전체 비율에 맞춰 가로 길이 조정
     }
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
     var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 사각형 및 사선 그리기 로직 (여기서는 생략)
+    // 사각형 그리기
+    var padding = 20;
+    var rectWidth = canvas.width - (padding * 2);
+    var rectHeight = canvas.height - (padding * 2);
+    var startX = padding;
+    var startY = padding;
 
-    // 루바 그리기 로직
-    var lubaWidth = 80;
-    var numberOfLubas = Math.floor((canvas.width - 2 * 20) / lubaWidth);
-    var lubaHeight = 20;
-    var startX = 20;
-    var startY = canvas.height - 20 - lubaHeight; // 사각형의 하단에 루바를 그리기 위한 시작 Y 좌표
+    ctx.beginPath();
+    ctx.rect(startX, startY, rectWidth, rectHeight);
+    ctx.stroke();
 
-    function drawLuba(index) {
-        if (index < numberOfLubas) {
-            ctx.fillStyle = '#964B00';
-            ctx.fillRect(startX + index * lubaWidth, startY, lubaWidth, lubaHeight);
-            setTimeout(() => drawLuba(index + 1), 1000); // 다음 루바 그리기를 1초 후에 실행
-        }
+    // 사선 그리기
+    var lineLength = 100; // 사선 길이
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(startX - lineLength, startY - lineLength);
+    ctx.moveTo(startX + rectWidth, startY);
+    ctx.lineTo(startX + rectWidth + lineLength, startY - lineLength);
+    ctx.moveTo(startX + rectWidth, startY + rectHeight);
+    ctx.lineTo(startX + rectWidth + lineLength, startY + rectHeight + lineLength);
+    ctx.moveTo(startX, startY + rectHeight);
+    ctx.lineTo(startX - lineLength, startY + rectHeight + lineLength);
+    ctx.stroke();
+
+    // 루바 그리기
+    var lubaWidth = 80; // 루바의 가로 길이
+    var numberOfLubas = Math.floor(rectWidth / lubaWidth); // 캔버스에 들어갈 수 있는 루바의 최대 개수
+    var lubaHeight = 20; // 루바의 높이
+
+    for (var i = 0; i < numberOfLubas; i++) {
+        ctx.fillStyle = '#964B00'; // 루바의 색상 설정
+        ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
-
-    drawLuba(0); // 첫 번째 루바부터 그리기 시작
 }
