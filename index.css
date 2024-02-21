@@ -1,0 +1,54 @@
+/* index.css 파일 */
+body {
+    font-family: 'Hi Melody', cursive;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#container {
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+.label, .unit, input[type="number"], button {
+    font-size: 0.75em; /* 입력칸과 버튼의 폰트 크기를 줄입니다. */
+    font-family: 'Hi Melody', cursive;
+}
+.result {
+    font-size: 3em;
+}
+.highlight {
+    display: inline;
+    box-shadow: inset 0 -10px 0 #F3DEAF;
+}
+button {
+    display: block; /* 버튼을 새로운 줄에 표시합니다. */
+    margin: 20px auto; /* 상단 여백을 추가하고 중앙 정렬합니다. */
+    background-color: #F3DEAF;
+    border: none;
+    padding: 5px 10px; /* 버튼의 패딩을 조정합니다. */
+    cursor: pointer;
+    border-radius: 15px;
+}
+button:hover {
+    opacity: 0.9;
+}
+#myCanvas {
+    margin-top: 20px;
+    width: 66.6%; /* 캔버스의 너비를 줄입니다. */
+    height: auto; /* 캔버스의 높이를 자동으로 조정합니다. */
+}
+@media (max-width: 768px) {
+    .label, .unit, button, input {
+        font-size: 1em;
+    }
+    .result {
+        font-size: 2em;
+    }
+    #container {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
