@@ -2,10 +2,12 @@ function drawCanvas(inputWidth) {
     var canvas = document.getElementById("myCanvas");
     if (!canvas) return; // 캔버스가 없으면 종료
 
+   
     var containerWidth = document.getElementById('container').offsetWidth * 0.5; // 컨테이너의 가로 폭의 절반
     var heightRatio = 2400; // 가정된 높이
     var width = parseFloat(inputWidth); // 사용자 입력 가로 값
-    var canvasHeight = (containerWidth * heightRatio) / width; // 캔버스 높이 계산, 비율 조정 필요
+    var canvasHeight = containerWidth * (heightRatio / width); // 캔버스 높이 계산
+
 
     canvas.width = containerWidth;
     canvas.height = containerHeight; //> containerWidth ? containerHeight : canvasWidth; // 캔버스 높이 조정
