@@ -68,7 +68,7 @@ function drawCanvas(inputWidth) {
         ctx.lineWidth = 0.5;
         ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
-     그리기
+     //몰딩 그리기
     var moldingWidthReal = 1200; // 몰딩 실제 가로
     var moldingHeightReal = 40; // 몰딩 실제 높이
     var moldingWidth = rectWidth * (moldingWidthReal / inputWidth); // 캔버스 상의 몰딩 가로 길이
