@@ -1,4 +1,3 @@
-/* index.css 파일 */
 body {
     font-family: 'Hi Melody', cursive;
     text-align: center;
@@ -7,48 +6,34 @@ body {
     box-sizing: border-box;
 }
 #container {
-    display: inline-block;
+    display: block; /* 컨테이너를 블록 레벨 요소로 변경 */
     text-align: center;
     margin-top: 20px;
     padding: 0 20px;
 }
-.label, .unit, input[type="number"], button {
-    font-size: 0.75em; /* 입력칸과 버튼의 폰트 크기를 줄입니다. */
+.label, .unit, button, input {
+    font-size: 1.5em;
     font-family: 'Hi Melody', cursive;
 }
-.result {
-    font-size: 3em;
-}
-.highlight {
-    display: inline;
-    box-shadow: inset 0 -10px 0 #F3DEAF;
+input[type="number"] {
+    font-size: 1em;
+    width: 50%;
 }
 button {
-    display: block; /* 버튼을 새로운 줄에 표시합니다. */
-    margin: 20px auto; /* 상단 여백을 추가하고 중앙 정렬합니다. */
+    display: block;
+    margin: 20px auto;
     background-color: #F3DEAF;
     border: none;
-    padding: 5px 10px; /* 버튼의 패딩을 조정합니다. */
+    padding: 10px 20px;
     cursor: pointer;
     border-radius: 15px;
+    font-size: 1em;
 }
-button:hover {
-    opacity: 0.9;
+#resultX, #moldingResult, #cuttingAdvice, #filmAdvice {
+    display: none;
 }
-  #myCanvas {
-        margin-top: 20px;
-        display: block; /* 블록 레벨 요소로 변경하여 가로 전체를 차지하도록 함 */
-        max-width: 100%; /* 캔버스의 최대 너비를 부모 요소의 너비에 맞춤 */
-}
-@media (max-width: 768px) {
-    .label, .unit, button, input {
-        font-size: 1em;
-    }
-    .result {
-        font-size: 2em;
-    }
-    #container {
-        width: 100%;
-        margin-top: 10px;
-    }
+#myCanvas {
+    margin-top: 20px;
+    display: block; /* 캔버스를 블록 레벨 요소로 변경하여 가로 전체를 차지하도록 함 */
+    max-width: 100%;
 }
