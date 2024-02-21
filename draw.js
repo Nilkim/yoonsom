@@ -41,12 +41,6 @@ function drawCanvas(inputWidth, numberOfLubas) {
 
     ctx.stroke();
 
-    // 루바 그리기
-    var lubaWidth = 80 / (width / rectWidth); // 루바 가로를 캔버스 크기에 맞게 조정
-    var lubaHeight = 1000 / (heightRatio / rectHeight); // 루바 높이를 캔버스 크기에 맞게 조정
 
-    for (var i = 0; i < numberOfLubas; i++) {
-        ctx.fillStyle = 'brown';
-        ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
 }
