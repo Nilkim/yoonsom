@@ -49,12 +49,12 @@ function drawCanvas(inputWidth) {
     ctx.stroke();
 
     // 루바 그리기
-    var lubaWidth = 80; // 루바의 가로 길이
-    var numberOfLubas = Math.floor(rectWidth / lubaWidth); // 캔버스에 들어갈 수 있는 루바의 최대 개수
-    var lubaHeight = 20; // 루바의 높이
+    var lubaRealWidth = 80; // 루바 실제 가로
+    var lubaRealHeight = 1000; // 루바 실제 세로
+    // 캔버스 상의 루바 크기 조정
+    var lubaWidth = rectWidth * (lubaRealWidth / inputWidth);
+    var lubaHeight = rectHeight * (lubaRealHeight / heightRatio);
 
-    for (var i = 0; i < numberOfLubas; i++) {
-        ctx.fillStyle = '#964B00'; // 루바의 색상 설정
-        ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
-    }
+    ctx.fillStyle = 'rgba(165, 42, 42, 0.5)'; // 루바 색상
+    ctx.fillRect(startX, startY + (rectHeight - lubaHeight), lubaWidth, lubaHeight);
 }
