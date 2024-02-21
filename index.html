@@ -62,7 +62,8 @@
             }
 
             var width = document.getElementById('widthInput').value;
-        drawCanvas(width);
+        var numberOfLubas = Math.floor(width / 80); // 사용자 입력 너비에 따른 루바 개수 계산
+drawCanvas(width, numberOfLubas);
 }
 document.getElementById('widthInput').addEventListener('input', function() {
         var value = this.value;
