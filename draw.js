@@ -60,12 +60,12 @@ function drawCanvas(inputWidth) {
 
     for (var i = 0; i < numberOfLubas; i++) {
         // 루바 채우기
-        ctx.fillStyle = 'brown';
+        ctx.fillStyle = '#cc9933'; // 루바 색상 변경
         ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
 
         // 루바 테두리 그리기
         ctx.strokeStyle = 'black';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 0.5;
         ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
 }
