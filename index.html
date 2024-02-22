@@ -39,7 +39,7 @@
             document.getElementById('resultX').style.display = "block";
             document.getElementById('moldingResult').style.display = "block";
             document.getElementById('resultX').innerText = "루바 필요 개수: " + x + "개";
-            document.getElementById('resultX').className = "result";
+            document.getElementById('resultX').className = "highlight";
 
             if (width % 80 === 0) {
                 document.getElementById('filmAdvice').style.display = "block";
@@ -54,7 +54,7 @@
             
             
             document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수: " + molding + "개";
-            document.getElementById('moldingResult').className = "result";
+            document.getElementById('moldingResult').className = "highlight";
 
             if (remainder === 0) {
                 document.getElementById('cuttingAdvice').style.display = "block";
