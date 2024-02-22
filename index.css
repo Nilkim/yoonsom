@@ -8,7 +8,10 @@ body {
 hr {
      border-color: #d3d3d3;
 }
-    
+.highlight {
+    display: inline;
+    box-shadow: inset 0 -10px 0 #F3DEAF; /* 텍스트 하이라이트 효과 */
+}
 #container {
     display: block; /* 컨테이너를 블록 레벨 요소로 변경 */
     text-align: center;
