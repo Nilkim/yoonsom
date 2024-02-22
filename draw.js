@@ -31,24 +31,27 @@ function drawCanvas(inputWidth) {
     ctx.strokeStyle = '#778899';
     ctx.lineWidth = 0.2;
     
-    // 사각형 그리기
+    // 뚤린사각형 그리기
     var padding = 20;
     var rectWidth = canvas.width - (padding * 2);
     var rectHeight = canvas.height - (padding * 2);
     var startX = padding;
     var startY = padding;
 
+    //ctx.beginPath();
+    //ctx.rect(startX, startY, rectWidth, rectHeight);
+    //ctx.stroke();
+
     ctx.beginPath();
-    ctx.rect(startX, startY, rectWidth, rectHeight);
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(startX, startY + rectHeight);
+    ctx.moveTo(startX + rectWidth, startY + rectHeight);
+    ctx.lineTo(startX + rectWidth, startY);
     ctx.stroke();
 
     // 사선 그리기
     var lineLength = 100; // 사선 길이
     ctx.beginPath();
-    ctx.moveTo(startX, startY);
-    ctx.lineTo(startX - lineLength, startY - lineLength);
-    ctx.moveTo(startX + rectWidth, startY);
-    ctx.lineTo(startX + rectWidth + lineLength, startY - lineLength);
     ctx.moveTo(startX + rectWidth, startY + rectHeight);
     ctx.lineTo(startX + rectWidth + lineLength, startY + rectHeight + lineLength);
     ctx.moveTo(startX, startY + rectHeight);
