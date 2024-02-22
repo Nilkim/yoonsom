@@ -35,12 +35,12 @@
 
             document.getElementById('resultX').style.display = "block";
             document.getElementById('moldingResult').style.display = "block";
-            document.getElementById('resultX').innerText = "필요한 루바: " + x + "개";
+            document.getElementById('resultX').innerText = "루바 필요 개수: " + x + "개";
             document.getElementById('resultX').className = "result";
 
             if (width % 80 === 0) {
                 document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다. 정확한 사이즈를 측정했는지 꼭 확인해주세요.";
+                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다.";
                 document.getElementById('filmAdvice').className = "result";
             } else {
                 document.getElementById('filmAdvice').style.display = "block";
