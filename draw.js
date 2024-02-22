@@ -1,5 +1,41 @@
-function drawCanvas(inputWidth) {
-    var canvas = document.getElementById("myCanvas");
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, startY, heightRatio) {
+    var lubaRealWidth = 80;
+    var lubaHeight = rectHeight * (1000 / heightRatio);
+    var numberOfLubas = Math.floor(inputWidth / lubaRealWidth);
+    var lubaWidth = rectWidth * (lubaRealWidth / inputWidth);
+
+    var moldingWidthReal = 1200;
+    var moldingHeightReal = 40;
+    var numberOfMoldings = Math.ceil(inputWidth / moldingWidthReal);
+    var totalDrawingElements = numberOfLubas + numberOfMoldings;
+    var delayPerElement = 3000 / totalDrawingElements;
+
+    for (let i = 0; i < numberOfLubas; i++) {
+        await delay(i * delayPerElement);
+        ctx.fillStyle = '#cc9933';
+        ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
+    }
+
+    for (let i = 0; i < numberOfMoldings; i++) {
+        await delay((numberOfLubas + i) * delayPerElement);
+        var moldingWidth = rectWidth * (moldingWidthReal / inputWidth);
+        ctx.fillStyle = '#cc6633';
+        ctx.fillRect(startX + i * moldingWidth, startY, moldingWidth, moldingHeightReal);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(startX + i * moldingWidth, startY, moldingWidth, moldingHeightReal);
+    }
+}
+
+async function drawCanvas(inputWidth) {
+       var canvas = document.getElementById("myCanvas");
     if (!canvas) return;
 
     // 캔버스 초기화
@@ -104,4 +140,7 @@ function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, st
             ctx.strokeRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)),  startY + rectHeight - lubaHeight-rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
         }, (numberOfLubas + i) * delay);
     }
+    await drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, startY, heightRatio);
 }
+
+
