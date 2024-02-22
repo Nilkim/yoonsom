@@ -7,6 +7,7 @@ body {
 }
 hr {
      border-color: #d3d3d3;
+    border-width: 0.2px;
 }
 .highlight {
     display: inline;
