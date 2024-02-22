@@ -38,6 +38,7 @@ button {
     cursor: pointer;
     border-radius: 15px;
     font-size: 1em;
+    color: black;
 }
 #resultX, #moldingResult, #cuttingAdvice, #filmAdvice {
     display: none;
