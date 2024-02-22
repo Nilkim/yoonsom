@@ -33,8 +33,14 @@ function drawCanvas(inputWidth) {
     var rectHeight = canvas.height - (padding * 2);
     var startX = padding;
     var startY = padding;
-
-
+    
+    ctx.strokeStyle = '#black';
+    ctx.lineWidth = 0.1;
+    ctx.beginPath();
+    ctx.moveTo(startX+canvasWidth/10, canvasHeight/4);
+    ctx.lineTo(startX + rectWidth -canvasWidth/10, canvasHeight/4);
+    ctx.stroke();
+    ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
     
     ctx.strokeStyle = '#778899';
     ctx.lineWidth = 0.2;
@@ -43,12 +49,9 @@ function drawCanvas(inputWidth) {
     ctx.lineTo(startX, startY + rectHeight);
     ctx.moveTo(startX + rectWidth, startY + rectHeight);
     ctx.lineTo(startX + rectWidth, startY);
-
-    ctx.moveTo(startX+canvasWidth/10, canvasHeight/4);
-    ctx.lineTo(startX+canvasWidth*9/10, canvasHeight/4);
     ctx.stroke();
 
-    ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
+
 
     // 사선 그리기
     var lineLength = 100; // 사선 길이
