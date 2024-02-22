@@ -47,7 +47,7 @@ function drawCanvas(inputWidth) {
     ctx.lineTo(startX + rectWidth, startY);
 
     ctx.moveTo(startX+canvasWidth/80, canvasHeight/4);
-    ctx.lineTo(startX+canvasWidth*79/80, canvasHeight/4);
+    ctx.lineTo(startX + rectWidth-canvasWidth/80, canvasHeight/4);
     ctx.stroke();
 
     ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
