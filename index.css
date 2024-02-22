@@ -6,8 +6,10 @@ body {
     box-sizing: border-box;
 }
 hr {
-     border-color: #d3d3d3;
-    border-width: 0.2px;
+    border: 0; /* 기존 테두리를 제거합니다 */
+    height:0.2px; /* 선의 높이를 지정합니다 */
+    background-color: #d3d3d3; /* 배경 색상을 빨간색으로 지정합니다. 이것이 선의 색상이 됩니다. */
+
 }
 .highlight {
     display: inline;
