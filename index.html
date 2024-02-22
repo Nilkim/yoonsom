@@ -32,6 +32,7 @@
             var x = Math.floor(width / 80);
             var molding = Math.ceil(width / 1200);
             var remainder = width % 1200;
+            var film = width % 80;
 
             document.getElementById('resultX').style.display = "block";
             document.getElementById('moldingResult').style.display = "block";
@@ -44,7 +45,7 @@
                 document.getElementById('filmAdvice').className = "result";
             } else {
                 document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "인테리어 필름이 필요합니다.";
+                document.getElementById('filmAdvice').innerText = ""남는 부분 " + film + "mm에 붙일 인테리어 필름이 필요합니다.";
                 document.getElementById('filmAdvice').className = "result";
             }
 
