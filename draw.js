@@ -34,6 +34,8 @@ function drawCanvas(inputWidth) {
     var startX = padding;
     var startY = padding;
 
+
+    
     ctx.strokeStyle = '#778899';
     ctx.lineWidth = 0.2;
     ctx.beginPath();
@@ -41,6 +43,9 @@ function drawCanvas(inputWidth) {
     ctx.lineTo(startX, startY + rectHeight);
     ctx.moveTo(startX + rectWidth, startY + rectHeight);
     ctx.lineTo(startX + rectWidth, startY);
+
+    ctx.moveTo(startX+canvasWidth/10, canvasHeight/4);
+    ctx.lineTo(startX+canvasWidth*9/10, canvasHeight/4);
     ctx.stroke();
 
     ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
