@@ -37,7 +37,7 @@ function drawCanvas(inputWidth) {
 
     
     ctx.strokeStyle = '#778899';
-    ctx.lineWidth = 0.2;
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(startX, startY + rectHeight);
@@ -88,7 +88,7 @@ function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, st
     }
     if (inputWidth%lubaRealWidth!=0 ){
             ctx.strokeStyle = 'red'; 
-            ctx.strokeRect(startX + numberOfLubas * lubaWidth, startY + rectHeight - lubaHeight, startX + rectWidth, startY + rectHeight);
+            ctx.strokeRect(startX + numberOfLubas * lubaWidth, startY + rectHeight - lubaHeight, startX + rectWidth-padding, startY + rectHeight-padding);
             }
 
     for (let i = 0; i < numberOfMoldings; i++) {
