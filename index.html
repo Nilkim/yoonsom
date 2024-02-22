@@ -51,6 +51,13 @@
                 document.getElementById('filmAdvice').className = "result";
             }
 
+            
+            // 여기에 <hr> 태그 추가
+                var hrElement = document.createElement('hr');
+                var moldingResultElement = document.getElementById('moldingResult');
+                moldingResultElement.parentNode.insertBefore(hrElement, moldingResultElement);
+
+            
             document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수: " + molding + "개";
             document.getElementById('moldingResult').className = "result";
 
