@@ -84,10 +84,10 @@ function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, st
         setTimeout(() => {
             var moldingWidth = (i < numberOfMoldings - 1) ? rectWidth * (moldingWidthReal / inputWidth) : rectWidth - (numberOfMoldings - 1) * (rectWidth * (moldingWidthReal / inputWidth));
             ctx.fillStyle = '#cc6633'; // 몰딩 색상
-            ctx.fillRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)), startY + rectHeight - lubaHeight+rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
+            ctx.fillRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)), startY + rectHeight - lubaHeight-rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 0.5;
-            ctx.strokeRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)),  startY + rectHeight - lubaHeight+rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
+            ctx.strokeRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)),  startY + rectHeight - lubaHeight-rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
         }, (numberOfLubas + i) * delay);
     }
 }
