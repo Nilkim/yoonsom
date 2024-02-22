@@ -43,6 +43,8 @@ function drawCanvas(inputWidth) {
     ctx.lineTo(startX + rectWidth, startY);
     ctx.stroke();
 
+    ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
+
     // 사선 그리기
     var lineLength = 100; // 사선 길이
     ctx.beginPath();
@@ -87,7 +89,9 @@ function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, st
             ctx.fillRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)), startY + rectHeight - lubaHeight-rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 0.5;
-            if (i == numberOfMoldings-1){ctx.strokeStyle = 'red';}
+            if (i == numberOfMoldings-1 && inputWidth%moldingWidthReal!=0 ){
+                ctx.strokeStyle = 'red'; 
+            }
                 
             ctx.strokeRect(startX + i * (rectWidth * (moldingWidthReal / inputWidth)),  startY + rectHeight - lubaHeight-rectHeight * (moldingHeightReal / heightRatio), moldingWidth, rectHeight * (moldingHeightReal / heightRatio));
         }, (numberOfLubas + i) * delay);
