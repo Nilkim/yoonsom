@@ -8,10 +8,10 @@ function drawCanvas(inputWidth) {
     var inputWidth = parseFloat(inputWidth); // 사용자 입력 가로 값
     if (!inputWidth) return;
 
-    var heightRatio = 2400; // 사각형의 높이 가정 값
+    var heightRatio = 1800; // 사각형의 높이 가정 값
     var ratio = inputWidth / heightRatio; // 가로 대 세로 비율
 
-    var containerWidth = document.getElementById('container').offsetWidth * 0.5; // 컨테이너 가로 폭의 절반
+    var containerWidth = document.getElementById('container').offsetWidth * 0.7; // 컨테이너 가로 폭의 절반
     var canvasWidth, canvasHeight;
 
     if (ratio > 1) { // 가로가 더 긴 경우
@@ -28,6 +28,9 @@ function drawCanvas(inputWidth) {
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    ctx.strokeStyle = '#778899';
+    ctx.lineWidth = 0.2;
+    
     // 사각형 그리기
     var padding = 20;
     var rectWidth = canvas.width - (padding * 2);
@@ -65,7 +68,6 @@ function drawCanvas(inputWidth) {
 
         // 루바 테두리 그리기
         ctx.strokeStyle = 'black';
-        ctx.lineWidth = 0.5;
         ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
     }
      //몰딩 그리기
@@ -87,7 +89,7 @@ function drawCanvas(inputWidth) {
         totalMoldingWidth += moldingWidth; // 그려진 몰딩 길이 업데이트
         //테두리
         ctx.strokeStyle = 'black';
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = 0.4;
         ctx.strokeRect(startX + i * moldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
     }
 // 마지막 몰딩 처리 (남은 너비가 있을 경우)
@@ -96,8 +98,7 @@ function drawCanvas(inputWidth) {
         moldingWidth = rectWidth * (remainingWidth / inputWidth); // 남은 너비에 맞게 몰딩 길이 조절
         ctx.fillRect(startX + totalMoldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
         //테두리
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'red';
         ctx.strokeRect(startX + totalMoldingWidth, startY + rectHeight - lubaHeight-moldingHeight, moldingWidth, moldingHeight);
     }
    }
