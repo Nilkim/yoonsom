@@ -42,11 +42,11 @@
 
             if (width % 80 === 0) {
                 document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다.";
+                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다:)";
                 document.getElementById('filmAdvice').className = "result";
             } else {
                 document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "남는 부분 " + film + "mm에 붙일 인테리어 필름이 필요합니다.";
+                document.getElementById('filmAdvice').innerText = "남는 부분 " + film + "mm에 붙일 인테리어 필름이 필요합니다:)";
                 document.getElementById('filmAdvice').className = "result";
             }
 
@@ -55,11 +55,11 @@
 
             if (remainder === 0) {
                 document.getElementById('cuttingAdvice').style.display = "block";
-                document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다.";
+                document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다:)";
                 document.getElementById('cuttingAdvice').className = "result";
             } else {
                 document.getElementById('cuttingAdvice').style.display = "block";
-                document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야 합니다. 맞춤 재단 키트를 추천드려요.";
+                document.getElementById('cuttingAdvice').innerHTML = "이 중 하나는 " + remainder + "mm 길이로 재단을 해야 합니다. 맞춤 재단 키트를 추천드려요:)";
                 document.getElementById('cuttingAdvice').className = "result";
             }
 
