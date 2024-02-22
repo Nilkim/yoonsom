@@ -52,13 +52,6 @@
             }
 
             
-            // 여기에 <hr> 태그 추가
-            var existingHr = document.querySelector('.custom-hr');
-            if (existingHr) {
-            existingHr.parentNode.removeChild(existingHr);
-            var hr = document.createElement('hr');
-            hr.className = 'custom-hr'; // 클래스 추가
-
             
             document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수: " + molding + "개";
             document.getElementById('moldingResult').className = "result";
