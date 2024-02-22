@@ -41,11 +41,13 @@ function drawCanvas(inputWidth) {
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(startX, startY + rectHeight);
+    ctx.moveTo(startX, startY + rectHeight);
+    ctx.lineTo(startX + rectWidth, startY + rectHeight);
     ctx.moveTo(startX + rectWidth, startY + rectHeight);
     ctx.lineTo(startX + rectWidth, startY);
 
     ctx.moveTo(startX+canvasWidth/10, canvasHeight/4);
-    ctx.lineTo(startX+canvasWidth*9/10, canvasHeight/4);
+    ctx.lineTo(startX+canvasWidth*8/10, canvasHeight/4);
     ctx.stroke();
 
     ctx.fillText(inputWidth,canvasWidth/2, canvasHeight/4);
