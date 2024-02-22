@@ -82,10 +82,14 @@ function drawLubasAndMoldings(ctx, inputWidth, rectWidth, rectHeight, startX, st
             ctx.fillStyle = '#cc9933'; // 루바 색상
             ctx.fillRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.5;            
             ctx.strokeRect(startX + i * lubaWidth, startY + rectHeight - lubaHeight, lubaWidth, lubaHeight);
         }, i * delay);
     }
+    if (inputWidth%lubaRealWidth!=0 ){
+            ctx.strokeStyle = 'red'; 
+            ctx.strokeRect(startX + numberOfLubas * lubaWidth, startY + rectHeight - lubaHeight, startX + rectWidth, startY + rectHeight);
+            }
 
     for (let i = 0; i < numberOfMoldings; i++) {
         setTimeout(() => {
