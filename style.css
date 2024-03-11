@@ -1,0 +1,107 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  /* flexbox를 사용하여 자식 요소들을 중앙 정렬 */
+  justify-content: center;
+  /* 수평 방향으로 중앙 정렬 */
+  align-items: center;
+  /* 수직 방향으로 중앙 정렬 */
+}
+
+
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 1.2em;
+  margin: 8px 0px;
+}
+
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.35);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 16px;
+}
+
+
+
+.highlight {
+  display: inline;
+  box-shadow: inset 0 -10px 0 #F3DEAF;
+  /* 텍스트 하이라이트 효과 */
+}
+
+#container {
+  display: block;
+  /* 컨테이너를 블록 레벨 요소로 변경 */
+  text-align: center;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.label,
+.unit,
+button,
+input {
+  font-size: 1.5em;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+input[type="number"] {
+  font-size: 1em;
+  width: 50%;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  background-color: #F3DEAF;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: 1em;
+  color: black;
+}
+
+#result_calculator {
+  width: 90%;
+  margin: 10px;
+  /* 컨테이너의 상하 마진 */
+  padding: 10px;
+  /* 내부 여백 */
+  text-align: left;
+  /* 내부 내용을 왼쪽으로 정렬 */
+}
+
+
+#myCanvas {
+  display: block;
+  /* 캔버스를 블록 레벨 요소로 명시적으로 설정 */
+  margin: 0 auto;
+  /* 상하 마진 0, 좌우 마진 자동으로 설정하여 가운데 정렬 */
+  /*max-width: 100%;*/
+}
+
+#canvasContainer {
+  text-align: center;
+  /* 캔버스 컨테이너를 가운데 정렬 */
+}
+
+input[type="number"] {
+  font-size: 1em;
+  width: 100px;
+  /* 입력칸의 너비를 고정 */
+  max-width: 100%;
+  /* 최대 너비를 100%로 설정하여 화면 너비를 초과하지 않도록 함 */
+}
