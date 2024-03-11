@@ -1,88 +1,99 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <title>루바 계산기</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css"> <!-- 외부 CSS 파일 링크 -->
+  <meta charset="UTF-8">
+  <title>루바 계산기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div id="container">
-        <div id="calculator">
-            <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력</span></label><br>
-            <input type="number" id="widthInput" placeholder="너비(mm)" maxlength="6">
-
-            <span class="unit">mm</span>
-            <br>
-            <button onclick="calculate()">계산하기</button>
-             <div class="hr-sect">계산결과</div>
-            <br>
-            <p id="resultX" class="result"></p>
-            <p id="filmAdvice" class="result"></p><br>
-            <p id="moldingResult" class="result"></p>
-            <p id="cuttingAdvice" class="result"></p>
-        </div>
-        <div id="canvasContainer"> <!-- 캔버스를 별도의 컨테이너에 배치 -->
-            <canvas id="myCanvas"></canvas>
-        </div>
+  <div id="container">
+    <div id="calculator">
+      <label for="widthInput" class="label"><span class="highlight">시공할 면의 가로 너비 입력</span></label><br>
+      <input type="number" id="widthInput" placeholder="너비(mm)" maxlength="6">
+      <span class="unit">mm</span><br>
+      <button id="calculateButton">계산하기</button>
+      <div class="hr-sect">계산결과</div>
+      <div id="result_calculator"></div>
+      <div id="canvasContainer">
+        <canvas id="myCanvas"></canvas>
+      </div>
     </div>
+  </div>
 
-    <script src="draw.js"></script>
-    <script>
-        function calculate() {
-            var width = document.getElementById('widthInput').value;
-            var x = Math.floor(width / 80);
-            var molding = Math.ceil(width / 1200);
-            var remainder = width % 1200;
-            var film = width % 80;
+  <script src="draw.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById('calculateButton').addEventListener('click', function () {
+        var inputWidth = document.getElementById('widthInput').value;
+        calculate(inputWidth); // 사용자 입력을 `calculate` 함수에 전달
+        drawCanvas(inputWidth);
 
-            document.getElementById('resultX').style.display = "block";
-            document.getElementById('moldingResult').style.display = "block";
-
-
-
-            document.getElementById('resultX').innerText = '루바 필요 개수: ' + x + '개';
-            document.getElementById('resultX').className = "result";
-
-            if (width % 80 === 0) {
-                document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "길이가 딱 맞아 떨어져, 인테리어 필름은 필요 없습니다:)";
-                document.getElementById('filmAdvice').className = "result";
-            } else {
-                document.getElementById('filmAdvice').style.display = "block";
-                document.getElementById('filmAdvice').innerText = "남는 부분 " + film + "mm에 붙일 인테리어 필름이 필요합니다:)";
-                document.getElementById('filmAdvice').className = "result";
-            }
-
-            
-           
-
-            
-            document.getElementById('moldingResult').innerText = "마감 몰딩 필요 개수: " + molding + "개";
-            document.getElementById('moldingResult').className = "result";
-
-            if (remainder === 0) {
-                document.getElementById('cuttingAdvice').style.display = "block";
-                document.getElementById('cuttingAdvice').innerText = "길이가 딱 맞아 떨어져, 재단은 필요 없습니다:)";
-                document.getElementById('cuttingAdvice').className = "result";
-            } else {
-                document.getElementById('cuttingAdvice').style.display = "block";
-                document.getElementById('cuttingAdvice').innerHTML = "마감몰딩 하나는 " + remainder + "mm 길이로 재단을 해야 합니다. <br>맞춤 재단 키트를 추천드려요:)";
-                document.getElementById('cuttingAdvice').className = "result";
-            }
-
-            var width = document.getElementById('widthInput').value;
-        var numberOfLubas = Math.floor(width / 80); // 사용자 입력 너비에 따른 루바 개수 계산
-drawCanvas(width, numberOfLubas);
-}
-document.getElementById('widthInput').addEventListener('input', function() {
-        var value = this.value;
-        if (value.length > 6) {
-            this.value = value.slice(0, 6); // 최대 6자리 숫자만 허용
-        }
+      });
     });
-</script>
+  </script>
+
+  <script>
+    function calculate() {
+      var width = document.getElementById('widthInput').value;
+      var lubas = Math.floor(width / 80);
+      var moldings = Math.ceil(width / 1200);
+      var film = width % 80 !== 0 ? 1 : 0; // 80으로 나눈 나머지가 0이 아니면 필요
+      var customCutKit = width % 1200 !== 0 ? 1 : 0;
+      var doubleSidedTape = Math.ceil(lubas / 40);
+      var silicone = Math.ceil(lubas / 10);
+
+      clearDynamicResults(); // Clear previous results
+
+      createDynamicResult('루바 : ' + lubas + '개');
+      createDynamicResult('마감 몰딩 : ' + moldings + '개');
+      if (film > 0) {
+        createDynamicResult('인테리어필름 : 1개');
+      }
+      createDynamicResult('맞춤재단키트 : ' + customCutKit + '개');
+      if (customCutKit === 0) {
+        createDynamicResult('콘센트 시공 루바 커팅 필요시 구매추천.', true);
+      }
+      // 엘리먼트 생성
+      var br = document.createElement("br");
+      // 생성된 엘리먼트 추가
+      document.getElementById('result_calculator').appendChild(br);
+
+      createDynamicResult('접착제품은');
+      createDynamicResult('기본적으로 초배테이프 : ' + doubleSidedTape + '개가 필요하고,');
+      //createDynamicResult("상, 중, 하 3줄 기준.", true);
+      createDynamicResult('벽면 상태에 따라 실리콘 : ' + silicone + '개가 추가로 필요합니다.');
+      //createDynamicResult("초배테이프가 잘 붙는 벽에는 불필요.", true);
+    }
+
+    function createDynamicResult(text, isIndented = false) {
+      var resultElement = document.createElement("p");
+      resultElement.innerText = text;
+      if (isIndented) {
+        resultElement.style.textIndent = "2em"; // 앞에 빈칸 2칸 들여쓰기
+        resultElement.style.color = "darkgray"; // 진한 회색 폰트
+        resultElement.style.marginTop = "2px"; // 위 줄간격 반정도 줄임
+
+      }
+      document.getElementById('result_calculator').appendChild(resultElement);
+    }
+
+    function clearDynamicResults() {
+      document.getElementById('result_calculator').innerHTML = '';
+    }
+
+    document.getElementById('widthInput').addEventListener('input', function () {
+      var value = this.value;
+      if (value.length > 6) {
+        this.value = value.slice(0, 6); // 최대 6자리 숫자만 허용
+      }
+    });
+  </script>
 
 </body>
+
 </html>
